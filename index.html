@@ -1,2430 +1,468 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="My First Web Page - Curricular Program & Interactive 90-Minute Lesson Simulator with embedded YouTube tracks, real mic spectrogram, and dynamic CEFR scoring." />
-  <title>My First Web Page - Educational Portal Antigravity</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ── Premium Design Tokens ──────────────────────────────────── */
-    :root {
-      --g-blue:    #4285F4;
-      --g-red:     #EA4335;
-      --g-yellow:  #FBBC05;
-      --g-green:   #34A853;
-      --navy-dark: #0b132b;
-      --navy-bg:   #1c2541;
-      --navy-light:#3a506b;
-      --cyan:      #5bc0be;
-      --text-main: #f4f6fc;
-      --text-mute: #a5b1c2;
-      --card-bg:   rgba(28, 37, 65, 0.75);
-      --card-border: rgba(91, 192, 190, 0.25);
-    }
-
-    /* ── Reset & Base ───────────────────────────────────────────── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: radial-gradient(circle at 50% 50%, var(--navy-bg) 0%, var(--navy-dark) 100%);
-      color: var(--text-main);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4 {
-      font-weight: 700;
-      color: #fff;
-    }
-
-    /* ── Header / Hero ──────────────────────────────────────────── */
-    header {
-      background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(52, 168, 83, 0.05) 100%);
-      border-bottom: 1px solid var(--card-border);
-      padding: 3rem 2rem 2.5rem;
-      text-align: center;
-      position: relative;
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(90deg, #fff, var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    header p.sub {
-      color: var(--text-mute);
-      font-size: 1.1rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .author-badge {
-      display: inline-block;
-      background: rgba(91, 192, 190, 0.15);
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 0.4rem 1.2rem;
-      border-radius: 50px;
-      margin-top: 1rem;
-    }
-
-    /* ── Main Layout ────────────────────────────────────────────── */
-    .container {
-      max-width: 1200px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-
-    @media (min-width: 900px) {
-      .container {
-        grid-template-columns: 350px 1fr;
-      }
-    }
-
-    /* ── Left Column: Academic Frame (Actividad 2 Requirements) ──── */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .sidebar-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.75rem;
-      backdrop-filter: blur(10px);
-    }
-
-    .sidebar-card h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid var(--g-blue);
-      padding-left: 0.6rem;
-      color: var(--cyan);
-    }
-
-    .sidebar-card p {
-      font-size: 0.92rem;
-      color: var(--text-mute);
-      margin-bottom: 1rem;
-    }
-
-    /* Ordered List styling */
-    .sidebar ol {
-      list-style-type: none;
-      counter-reset: item;
-      padding-left: 0;
-    }
-
-    .sidebar ol li {
-      position: relative;
-      padding-left: 2.2rem;
-      margin-bottom: 0.8rem;
-      font-size: 0.92rem;
-      color: var(--text-main);
-    }
-
-    .sidebar ol li::before {
-      content: counter(item);
-      counter-increment: item;
-      position: absolute;
-      left: 0;
-      top: 0.1rem;
-      background: var(--g-blue);
-      color: #fff;
-      font-weight: 700;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-    }
-
-    /* Image styling with Hover Scale */
-    .img-container {
-      margin-top: 1rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .img-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .img-container:hover img {
-      transform: scale(1.05);
-    }
-
-    .img-caption {
-      font-size: 0.78rem;
-      color: var(--text-mute);
-      margin-top: 0.5rem;
-      text-align: center;
-      font-style: italic;
-    }
-
-    /* Educational Link Button */
-    .edu-link {
-      display: inline-block;
-      margin-top: 0.8rem;
-      padding: 0.7rem 1.4rem;
-      background: linear-gradient(135deg, var(--g-blue) 0%, #2b6cb0 100%);
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.9rem;
-      border-radius: 8px;
-      text-decoration: none;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-
-    .edu-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(66, 133, 244, 0.5);
-      text-decoration: none;
-      color: #fff;
-    }
-
-    /* ── Right Column: Interactive Simulator ────────────────────── */
-    .simulator {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 2rem;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .sim-header {
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .sim-title {
-      font-size: 1.5rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .sim-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-mute);
-      margin-top: 0.3rem;
-    }
-
-    /* Selector Grid */
-    .selector-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    @media (min-width: 600px) {
-      .selector-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-group label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--cyan);
-    }
-
-    .form-select {
-      background: #111a36;
-      border: 1px solid var(--card-border);
-      color: #fff;
-      padding: 0.6rem 0.8rem;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      outline: none;
-      cursor: pointer;
-      transition: border-color 0.3s;
-    }
-
-    .form-select:focus {
-      border-color: var(--cyan);
-    }
-
-    /* Timeline Navigation */
-    .timeline {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      margin: 2.5rem 0;
-      padding: 0 0.5rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 15px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: rgba(255,255,255,0.1);
-      z-index: 1;
-    }
-
-    .timeline-progress {
-      position: absolute;
-      top: 15px;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--g-blue), var(--g-green));
-      z-index: 1;
-      width: 0%;
-      transition: width 0.4s ease;
-    }
-
-    .time-step {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      width: 60px;
-    }
-
-    .step-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--navy-bg);
-      border: 2px solid rgba(255,255,255,0.2);
-      color: var(--text-mute);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-    }
-
-    .time-step:hover .step-circle {
-      border-color: var(--cyan);
-      color: #fff;
-    }
-
-    .time-step.active .step-circle {
-      background: var(--g-blue);
-      border-color: var(--g-blue);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(66, 133, 244, 0.6);
-    }
-
-    .time-step.completed .step-circle {
-      background: var(--g-green);
-      border-color: var(--g-green);
-      color: #fff;
-    }
-
-    .step-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--text-mute);
-      text-align: center;
-      margin-top: 0.5rem;
-      white-space: nowrap;
-    }
-
-    .time-step.active .step-label {
-      color: var(--cyan);
-    }
-
-    /* Tab Panels */
-    .tab-content {
-      background: rgba(17, 26, 54, 0.5);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 1.5rem;
-      min-height: 300px;
-    }
-
-    .tab-panel {
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .panel-header h3 {
-      font-size: 1.15rem;
-      color: var(--cyan);
-    }
-
-    .panel-badge {
-      background: rgba(255,255,255,0.08);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.72rem;
-      color: var(--text-mute);
-      font-weight: 600;
-    }
-
-    /* Step 1: Vocabulary Styles */
-    .vocab-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 1rem;
-    }
-
-    .vocab-card {
-      background: #1c2541;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: center;
-      cursor: pointer;
-      position: relative;
-      perspective: 1000px;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.3s;
-    }
-
-    .vocab-card:hover {
-      border-color: var(--cyan);
-      box-shadow: 0 4px 12px rgba(91,192,190,0.25);
-    }
-
-    .vocab-card .word {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #fff;
-    }
-
-    .vocab-card .translation {
-      font-size: 0.82rem;
-      color: var(--text-mute);
-      margin-top: 0.4rem;
-      display: none;
-    }
-
-    .vocab-card.flipped .translation {
-      display: block;
-    }
-
-    .vocab-card.flipped .word {
-      color: var(--cyan);
-    }
-
-    .vocab-card .tip {
-      font-size: 0.65rem;
-      color: var(--g-yellow);
-      margin-top: 0.5rem;
-    }
-
-    /* Step 2: Music, Audio, Spectrogram & Recording */
-    .song-title-display {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--g-yellow);
-      font-style: italic;
-      margin-bottom: 0.5rem;
-    }
-
-    .music-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin: 1rem 0;
-    }
-
-    .btn {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 8px;
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--g-blue);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: #2b6cb0;
-    }
-
-    .btn-success {
-      background: var(--g-green);
-      color: #fff;
-    }
-
-    .btn-success:hover {
-      background: #276749;
-    }
-
-    .btn-danger {
-      background: var(--g-red);
-      color: #fff;
-    }
-
-    .btn-danger:hover {
-      background: #c53030;
-    }
-
-    .flow-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 1.2rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .flow-card h4 {
-      font-size: 0.95rem;
-      color: var(--cyan);
-      margin-bottom: 0.6rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      padding-bottom: 0.3rem;
-    }
-
-    .spectrogram-container {
-      background: #0b132b;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 1rem 0;
-      position: relative;
-    }
-
-    .spectrogram-label {
-      position: absolute;
-      top: 5px;
-      left: 8px;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      color: var(--text-mute);
-      letter-spacing: 1px;
-      z-index: 10;
-    }
-
-    #specCanvas {
-      width: 100%;
-      height: 140px;
-      display: block;
-    }
-
-    /* Embedded YouTube Player frame container */
-    .yt-player-container {
-      width: 100%;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 1rem;
-      background: #000;
-    }
-
-    .yt-player-container iframe {
-      display: block;
-    }
-
-    /* Lyrics Karaoke display */
-    .lyrics-display {
-      background: rgba(255,255,255,0.02);
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1.2rem;
-      border-left: 3px solid var(--g-yellow);
-    }
-    
-    .lyrics-display h4 {
-      font-size: 0.85rem;
-      color: var(--g-yellow);
-      margin-bottom: 0.4rem;
-    }
-
-    .karaoke-container {
-      font-size: 1rem;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    .k-word {
-      display: inline-block;
-      margin-right: 0.3rem;
-      transition: color 0.15s ease, transform 0.15s ease;
-    }
-
-    .k-word.active {
-      color: var(--g-yellow);
-      font-weight: 700;
-      transform: scale(1.1);
-    }
-
-    .recording-section {
-      background: rgba(255,255,255,0.03);
-      padding: 1.2rem;
-      border-radius: 8px;
-      border: 1px dashed rgba(255,255,255,0.15);
-      margin-top: 1rem;
-    }
-
-    .recording-visualizer {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      height: 45px;
-      margin-top: 0.8rem;
-    }
-
-    .bar {
-      flex: 1;
-      height: 3px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      transition: height 0.1s ease;
-    }
-
-    .recording-section.recording .bar {
-      background: var(--g-red);
-    }
-
-    .recording-timer {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--g-red);
-      font-family: monospace;
-      margin-left: auto;
-    }
-
-    .recording-status {
-      font-size: 0.88rem;
-      color: var(--text-mute);
-    }
-
-    /* Step 3: Reading & Writing */
-    .reading-passage {
-      background: rgba(255,255,255,0.03);
-      border-left: 3px solid var(--g-blue);
-      padding: 1rem;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.88rem;
-      color: var(--text-main);
-      margin-bottom: 1.2rem;
-      max-height: 150px;
-      overflow-y: auto;
-    }
-
-    /* Multiple Questions container */
-    .quiz-questions-scroll {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      max-height: 280px;
-      overflow-y: auto;
-      padding-right: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .quiz-question {
-      background: rgba(255,255,255,0.01);
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 0.8rem;
-      border-radius: 8px;
-    }
-
-    .quiz-question p {
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .option-label {
-      background: #1c2541;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      padding: 0.5rem 0.8rem;
-      font-size: 0.82rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-    }
-
-    .option-label:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: var(--cyan);
-    }
-
-    .option-label.correct {
-      border-color: var(--g-green);
-      background: rgba(52, 168, 83, 0.15);
-      color: #72db8d;
-    }
-
-    .option-label.incorrect {
-      border-color: var(--g-red);
-      background: rgba(234, 67, 53, 0.15);
-      color: #ff8a80;
-    }
-
-    /* Writing box styling */
-    .writing-section {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 1.2rem;
-      margin-top: 1.2rem;
-    }
-
-    .writing-textarea {
-      width: 100%;
-      min-height: 80px;
-      background: #111a36;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      color: #fff;
-      padding: 0.8rem;
-      font-family: inherit;
-      font-size: 0.88rem;
-      resize: vertical;
-      outline: none;
-      margin-bottom: 0.5rem;
-    }
-
-    .writing-textarea:focus {
-      border-color: var(--cyan);
-    }
-
-    .writing-stats {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      color: var(--text-mute);
-    }
-
-    .connector-badge {
-      display: inline-block;
-      padding: 0.1rem 0.4rem;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.08);
-      margin-right: 0.25rem;
-      font-size: 0.7rem;
-      transition: all 0.3s;
-    }
-
-    .connector-badge.active {
-      background: var(--g-green);
-      color: #fff;
-    }
-
-    /* Step 4: Wordwall Vocabulary Matcher */
-    .wordwall-instructions {
-      font-size: 0.82rem;
-      color: var(--text-mute);
-      margin-bottom: 0.8rem;
-      text-align: center;
-    }
-
-    .matcher-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      position: relative;
-    }
-
-    .matcher-column {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .matcher-item {
-      background: #1c2541;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 0.6rem 0.8rem;
-      font-size: 0.82rem;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      min-height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .matcher-item:hover {
-      border-color: var(--cyan);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .matcher-item.selected {
-      background: rgba(66, 133, 244, 0.15);
-      border-color: var(--g-blue);
-      box-shadow: 0 0 8px rgba(66, 133, 244, 0.4);
-    }
-
-    .matcher-item.matched {
-      background: rgba(52, 168, 83, 0.15);
-      border-color: var(--g-green);
-      color: #72db8d;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    .game-win-banner {
-      display: none;
-      text-align: center;
-      color: var(--g-green);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-top: 1rem;
-      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes pop {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Step 5: Self-Evaluation & Drive Sync */
-    .grade-scale-display {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .grade-scale-title {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--cyan);
-      margin-bottom: 0.6rem;
-      text-align: center;
-    }
-
-    .scale-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.4rem;
-      text-align: center;
-    }
-
-    .scale-box {
-      padding: 0.5rem 0.2rem;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.03);
-      font-size: 0.72rem;
-    }
-
-    .scale-box strong {
-      font-size: 1rem;
-      display: block;
-      margin-bottom: 0.1rem;
-    }
-
-    .s-c { border-top: 3px solid var(--g-red); color: var(--g-red); }
-    .s-b { border-top: 3px solid var(--g-yellow); color: var(--g-yellow); }
-    .s-a { border-top: 3px solid var(--g-blue); color: var(--g-blue); }
-    .s-ad { border-top: 3px solid var(--g-green); color: var(--g-green); }
-
-    /* Scoreboard */
-    .scoreboard {
-      background: #111a36;
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 1.2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .score-large {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
-      margin: 0.4rem 0;
-    }
-
-    .grade-result {
-      display: inline-block;
-      padding: 0.2rem 1.2rem;
-      border-radius: 100px;
-      font-weight: 800;
-      font-size: 1.4rem;
-      margin-top: 0.4rem;
-    }
-
-    .grade-result.C { background: rgba(234,67,53,0.15); color: var(--g-red); }
-    .grade-result.B { background: rgba(251,188,5,0.15); color: var(--g-yellow); }
-    .grade-result.A { background: rgba(66,133,244,0.15); color: var(--g-blue); }
-    .grade-result.AD { background: rgba(52,168,83,0.15); color: var(--g-green); }
-
-    .score-breakdown {
-      display: flex;
-      justify-content: space-around;
-      font-size: 0.76rem;
-      color: var(--text-mute);
-      margin-top: 0.8rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 0.6rem;
-    }
-
-    /* Reflection Card styles */
-    .reflection-card {
-      background: rgba(91, 192, 190, 0.05);
-      border: 1px dashed var(--card-border);
-      padding: 1rem 1.2rem;
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-    }
-
-    .reflection-card h4 {
-      font-size: 0.9rem;
-      color: var(--cyan);
-      margin-bottom: 0.5rem;
-    }
-
-    .reflection-textarea {
-      width: 100%;
-      min-height: 60px;
-      background: #111a36;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      color: #fff;
-      padding: 0.6rem;
-      font-family: inherit;
-      font-size: 0.82rem;
-      resize: vertical;
-      outline: none;
-      margin-bottom: 0.8rem;
-    }
-
-    .reflection-textarea:focus {
-      border-color: var(--cyan);
-    }
-
-    .sync-box {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 1.2rem;
-      text-align: center;
-    }
-
-    .sync-btn {
-      width: 100%;
-      padding: 0.8rem;
-      background: linear-gradient(135deg, var(--g-green) 0%, #276749 100%);
-      color: #fff;
-      font-family: inherit;
-      font-weight: 700;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      box-shadow: 0 4px 15px rgba(52,168,83,0.3);
-      transition: all 0.3s;
-    }
-
-    .sync-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(52,168,83,0.5);
-    }
-
-    /* Dynamic sync console log simulation */
-    .sync-console {
-      background: #080c18;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      padding: 0.7rem;
-      font-family: monospace;
-      font-size: 0.72rem;
-      color: #34A853;
-      text-align: left;
-      height: 95px;
-      overflow-y: auto;
-      margin-top: 0.8rem;
-      display: none;
-    }
-
-    /* Footer styling */
-    footer {
-      border-top: 1px solid var(--card-border);
-      padding: 2rem;
-      text-align: center;
-      color: var(--text-mute);
-      font-size: 0.82rem;
-      margin-top: 2rem;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ═══════════════════════════════════════════════
-       HEADER
-  ════════════════════════════════════════════════ -->
-  <header>
-    <h1>My First Web Page</h1>
-    <p class="sub">Educational Portal: Influence of Google Workspace Offline-Online Packages on the Four English Language Skills</p>
-    <div class="author-badge">Student Researcher: María de los Ángeles Vilca Zeballos &bull; Actividad 2</div>
-  </header>
-
-  <!-- ═══════════════════════════════════════════════
-       MAIN CONTAINER
-  ════════════════════════════════════════════════ -->
-  <div class="container">
-
-    <!-- LEFT COLUMN: Academic Frame (Actividad 2 Requirements) -->
-    <aside class="sidebar">
-
-      <section class="sidebar-card">
-        <h2>Program Purpose</h2>
-        <p>
-          This web prototype has been designed to model and systematize the pedagogical processes of the educational intervention program at <strong>Antigravity IDE, Arequipa (2026)</strong>.
-        </p>
-        <p>
-          Using semantic <strong>HTML5</strong> markup, this framework demonstrates how offline-enabled Google Workspace components boost listening, reading, speaking, and writing competencies in high school settings.
-        </p>
-      </section>
-
-      <section class="sidebar-card">
-        <h2>Learning Objectives</h2>
-        <ol>
-          <li>Identify and implement structural <strong>HTML5</strong> tags to design semantic, accessible layouts.</li>
-          <li>Incorporate interactive client-side <strong>JavaScript</strong> and <strong>Web Audio API</strong> to simulate educational tools.</li>
-          <li>Evaluate localized data persistence configurations to assist learning in connection-intermittent classrooms.</li>
-        </ol>
-      </section>
-
-      <section class="sidebar-card">
-        <h2>Reference Resource</h2>
-        <p>A reference image showing high school students engaging in collaborative digital learning environments:</p>
-        <div class="img-container">
-          <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80"
-            alt="Students working collaboratively on computers in classroom"
-          />
-        </div>
-        <div class="img-caption">Technology integration in modern secondary classrooms (Source: Unsplash)</div>
-      </section>
-
-      <section class="sidebar-card">
-        <h2>Reference Platform</h2>
-        <p>To access further interactive tutorials on web programming, CSS styling, and JavaScript logic, visit:</p>
-        <a href="https://www.khanacademy.org" target="_blank" class="edu-link" id="eduLinkKhan">
-          Visit Khan Academy &rarr;
-        </a>
-      </section>
-
-    </aside>
-
-    <!-- RIGHT COLUMN: Interactive 90-Minute Class Simulator -->
-    <main class="simulator">
-
-      <div class="sim-header">
-        <h2 class="sim-title">⚡ Integrated 90-Minute Lesson Simulator</h2>
-        <div class="sim-subtitle">Select the CEFR Academic Level and Lesson to experience the offline-online student workflow.</div>
-      </div>
-
-      <!-- Level & Lesson Selectors -->
-      <div class="selector-grid">
-        <div class="form-group">
-          <label for="levelSelect">Academic Level (CEFR):</label>
-          <select id="levelSelect" class="form-select">
-            <option value="A1">Level A1 (Beginner)</option>
-            <option value="A2" selected>Level A2 (Elementary)</option>
-            <option value="B1">Level B1 (Intermediate)</option>
-            <option value="B2">Level B2 (Upper Intermediate)</option>
-            <option value="C1">Level C1 (Advanced)</option>
-            <option value="C2">Level C2 (Proficient)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="lessonSelect">Lesson Session:</label>
-          <select id="lessonSelect" class="form-select">
-            <option value="1">Lesson 1: Introduction &amp; Core Vocabulary</option>
-            <option value="2">Lesson 2: Daily Schedules &amp; Tasks</option>
-            <option value="3">Lesson 3: Hobbies &amp; Personal Interests</option>
-            <option value="4">Lesson 4: Travel Planning &amp; Routes</option>
-            <option value="5">Lesson 5: Team Research Projects</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Timeline Navigation -->
-      <nav class="timeline" aria-label="Class timeline steps">
-        <div class="timeline-progress" id="timeProgress"></div>
-
-        <div class="time-step active" onclick="goToStep(1)">
-          <div class="step-circle">1</div>
-          <div class="step-label">Vocabulary</div>
-        </div>
-
-        <div class="time-step" onclick="goToStep(2)">
-          <div class="step-circle">2</div>
-          <div class="step-label">Song Track</div>
-        </div>
-
-        <div class="time-step" onclick="goToStep(3)">
-          <div class="step-circle">3</div>
-          <div class="step-label">Reading/Writing</div>
-        </div>
-
-        <div class="time-step" onclick="goToStep(4)">
-          <div class="step-circle">4</div>
-          <div class="step-label">Wordwall Game</div>
-        </div>
-
-        <div class="time-step" onclick="goToStep(5)">
-          <div class="step-circle">5</div>
-          <div class="step-label">Self-Evaluation</div>
-        </div>
-      </nav>
-
-      <!-- TAB CONTENTS -->
-      <div class="tab-content">
-
-        <!-- STEP 1: Vocabulary Acquisition -->
-        <div class="tab-panel active" id="step1">
-          <div class="panel-header">
-            <h3>Step 1: Vocabulary Acquisition (15 min)</h3>
-            <span class="panel-badge">HE1 Focus</span>
-          </div>
-          <p style="font-size:0.85rem; color:var(--text-mute); margin-bottom:1rem;">
-            Hover or tap on each card to reveal the Spanish translation and phonetic pronunciation tips.
-          </p>
-          <div class="vocab-grid" id="vocabContainer">
-            <!-- Dynamically loaded -->
-          </div>
-        </div>
-
-        <!-- STEP 2: Singing & Listening Comprehension -->
-        <div class="tab-panel" id="step2">
-          <div class="panel-header">
-            <h3>Step 2: Singing &amp; Listening Comprehension (25 min)</h3>
-            <span class="panel-badge">HE1 &amp; HE2 Audio</span>
-          </div>
-
-          <div class="song-title-display" id="songTitleDisplay">
-            Song: Someone Like You - Adele
-          </div>
-
-          <!-- Phase A: Watch & Listen on YouTube -->
-          <div class="flow-card">
-            <h4>Phase A: Listen to Radio Song on YouTube (Normal Audio &amp; Video)</h4>
-            <p style="font-size:0.82rem; color:var(--text-mute); margin-bottom:0.8rem;">
-              Play the official video song with the singer's real voice. Watch, listen, and sing along to practice:
-            </p>
-            
-            <!-- Embedded YouTube Player -->
-            <div class="yt-player-container">
-              <iframe 
-                id="youtubePlayer"
-                width="100%" 
-                height="220" 
-                src="" 
-                title="YouTube video player"
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen
-              ></iframe>
-            </div>
-            
-            <!-- Lyrics Karaoke display -->
-            <div class="lyrics-display">
-              <div class="karaoke-container" id="karaokeBox">
-                <!-- Words highlighted dynamically -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Phase B: Spectrogram & Sing Along -->
-          <div class="flow-card">
-            <h4>Phase B: Practice singing &amp; view your Spectrogram</h4>
-            <p style="font-size:0.82rem; color:var(--text-mute); margin-bottom:0.8rem;">
-              Now practice your own singing and pronunciation! Click record to display your custom spectrogram voice analysis:
-            </p>
-
-            <!-- Real Mic Spectrogram Visualizer Canvas -->
-            <div class="spectrogram-container">
-              <span class="spectrogram-label" id="spectrogramLabel">Voice Spectrogram (Ready)</span>
-              <canvas id="specCanvas"></canvas>
-            </div>
-
-            <!-- Real Microphone / Recording Integration -->
-            <div class="recording-section" id="recordSection">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="recording-status" id="recStatus">Microphone input status: Ready</span>
-                <span class="recording-timer" id="recTimer">00:00</span>
-              </div>
-
-              <!-- Waveform bars -->
-              <div class="recording-visualizer" id="recVisualizer">
-                <!-- Animated audio bars -->
-              </div>
-
-              <div style="margin-top:0.8rem;">
-                <button class="btn btn-success" id="btnRecord" onclick="toggleRecording()">
-                  🎤 Sing &amp; Record Voice
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- STEP 3: Reading & Writing Intervention -->
-        <div class="tab-panel" id="step3">
-          <div class="panel-header">
-            <h3>Step 3: Reading &amp; Writing (25 min)</h3>
-            <span class="panel-badge">HE2 Focus</span>
-          </div>
-
-          <div class="reading-passage" id="readingPassageText">
-            <!-- Loaded dynamically -->
-          </div>
-
-          <!-- 5-Question Quiz list -->
-          <div class="quiz-questions-scroll" id="quizContainer">
-            <!-- Dynamically loaded questions -->
-          </div>
-
-          <!-- Writing prompt with connector validation -->
-          <div class="writing-section">
-            <h4 style="font-size:0.9rem; margin-bottom:0.4rem; color:var(--cyan);">Active Writing Prompt (Min. 15 words)</h4>
-            <p style="font-size:0.8rem; color:var(--text-mute); margin-bottom:0.5rem;">
-              Write a short response. Make sure to use these logical connectors to link your thoughts:
-            </p>
-            <div style="margin-bottom:0.6rem;">
-              <span class="connector-badge" id="badge-because">because</span>
-              <span class="connector-badge" id="badge-however">however</span>
-              <span class="connector-badge" id="badge-therefore">therefore</span>
-              <span class="connector-badge" id="badge-although">although</span>
-            </div>
-
-            <textarea
-              class="writing-textarea"
-              id="writingText"
-              placeholder="Start drafting your paragraph here..."
-              oninput="validateWriting()"
-            ></textarea>
-
-            <div class="writing-stats">
-              <span id="wordCountLabel">Words: 0 / 15</span>
-              <span id="writingStatusLabel" style="color:var(--g-red); font-weight:600;">Status: Pending</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 4: Wordwall Vocabulary Matcher -->
-        <div class="tab-panel" id="step4">
-          <div class="panel-header">
-            <h3>Step 4: Wordwall Vocabulary Matcher (15 min)</h3>
-            <span class="panel-badge">Interactive Mini-Game</span>
-          </div>
-          <div class="wordwall-instructions">
-            Match each English word on the left with its corresponding Spanish meaning on the right.
-          </div>
-
-          <div class="matcher-container" id="matcherContainer">
-            <div class="matcher-column" id="colWords">
-              <!-- Left items -->
-            </div>
-            <div class="matcher-column" id="colDefs">
-              <!-- Right items -->
-            </div>
-          </div>
-
-          <div class="game-win-banner" id="gameWinBanner">
-            🎉 Level Cleared! All terms matched successfully.
-          </div>
-        </div>
-
-        <!-- STEP 5: Student Self-Evaluation & Drive Sync -->
-        <div class="tab-panel" id="step5">
-          <div class="panel-header">
-            <h3>Step 5: Dynamic Grade Report &amp; Sync (10 min)</h3>
-            <span class="panel-badge">Score Calculator</span>
-          </div>
-
-          <!-- Academic Scale Info -->
-          <div class="grade-scale-display">
-            <div class="grade-scale-title">CEFR Grading Rubric Scale</div>
-            <div class="scale-row">
-              <div class="scale-box s-c"><strong>C</strong>0 - 10 pts</div>
-              <div class="scale-box s-b"><strong>B</strong>11 - 13 pts</div>
-              <div class="scale-box s-a"><strong>A</strong>14 - 17 pts</div>
-              <div class="scale-box s-ad"><strong>AD</strong>18 - 20 pts</div>
-            </div>
-          </div>
-
-          <!-- Creative Thought and Self-Evaluation Reflections (Required) -->
-          <div class="reflection-card">
-            <h4>💡 Creative Thought / Reflection</h4>
-            <p style="font-size:0.78rem; color:var(--text-mute); margin-bottom:0.4rem;">
-              Share a creative insight or thought regarding what you worked on during this session:
-            </p>
-            <textarea 
-              class="reflection-textarea" 
-              id="txtCreativeThought" 
-              placeholder="e.g. Learning A2 vocabulary offline showed me how technology helps persist through connection drops..."
-              oninput="validateReflections()"
-            ></textarea>
-
-            <h4>🛠 Practical Utility Self-Evaluation</h4>
-            <p style="font-size:0.78rem; color:var(--text-mute); margin-bottom:0.4rem;">
-              How is this learning useful for you? What is the practical utility in your daily life?
-            </p>
-            <textarea 
-              class="reflection-textarea" 
-              id="txtPracticalUtility" 
-              placeholder="e.g. This helps me write emails to foreign peers and access travel guidelines without cellular network data..."
-              oninput="validateReflections()"
-            ></textarea>
-            
-            <div style="font-size: 0.74rem; text-align: right; color: var(--g-yellow);" id="lblReflectionBonus">
-              Reflections bonus score: 0 / 2 points
-            </div>
-          </div>
-
-          <!-- Score Card -->
-          <div class="scoreboard">
-            <h4 style="font-size: 0.9rem; color: var(--text-mute);">Session Performance Score</h4>
-            <div class="score-large" id="lblTotalPoints">0 / 20</div>
-            <div class="grade-result C" id="lblGradeBadge">GRADE: C</div>
-            
-            <div class="score-breakdown">
-              <div>
-                <p>Quiz (Receptive)</p>
-                <strong id="lblScoreQuiz">0 / 10</strong>
-              </div>
-              <div>
-                <p>Writing (Productive)</p>
-                <strong id="lblScoreWriting">0 / 4</strong>
-              </div>
-              <div>
-                <p>Singing / Speaking</p>
-                <strong id="lblScoreSpeaking">0 / 4</strong>
-              </div>
-              <div>
-                <p>Reflections</p>
-                <strong id="lblScoreReflect">0 / 2</strong>
-              </div>
-            </div>
-          </div>
-
-          <div class="sync-box">
-            <button class="sync-btn" onclick="startDriveSync()">
-              <span>☁️</span> Synchronize Portfolio Report with Drive
-            </button>
-
-            <!-- Sync output log terminal -->
-            <div class="sync-console" id="syncConsole"></div>
-          </div>
-        </div>
-
-      </div>
-    </main>
-
-  </div>
-
-  <!-- ═══════════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════════════ -->
-  <footer>
-    <p>
-      &copy; 2026 María de los Ángeles Vilca Zeballos &bull; Second Professional Specialization Program in Technologies and Communication Applied to Education &bull; Universidad Nacional de San Agustín de Arequipa.
-    </p>
-  </footer>
-
-  <!-- ═══════════════════════════════════════════════
-       JAVASCRIPT CODE
-  ════════════════════════════════════════════════ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Research on the Influence of Google Workspace Offline-Online Packages on the Four English Language Skills – Antigravity IDE, Arequipa 2026.">
+  <title>Workspace Study – Google Workspace & English Skills</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* ─── Level Curricular Dataset ──────────────────────────────── */
-    const lessonData = {
-      A1: {
-        1: {
-          vocab: [
-            { w: "Hello", t: "Hola", p: "/jeloú/" },
-            { w: "Name", t: "Nombre", p: "/néim/" },
-            { w: "Age", t: "Edad", p: "/éich/" },
-            { w: "Friend", t: "Amigo", p: "/frend/" }
-          ],
-          song: "Count On Me - Bruno Mars",
-          lyrics: "If you ever find yourself stuck in the middle of the sea, I will sail the world to find you.",
-          reading: "Hello, my name is Alex. I am 14 years old. I live in Arequipa, Peru. I have a friend named Lucy. We like to study English together on school Chromebooks.",
-          quizzes: [
-            { q: "Where does Alex live?", o: ["Lima", "Arequipa", "Cusco"], a: 1 },
-            { q: "How old is Alex?", o: ["12 years old", "14 years old", "16 years old"], a: 1 },
-            { q: "What is Lucy's relation to Alex?", o: ["Sister", "Teacher", "Friend"], a: 2 },
-            { q: "What devices do they study on?", o: ["Chromebooks", "Tablets", "Smartphones"], a: 0 },
-            { q: "Do they study English together?", o: ["No, they don't", "Yes, they do", "They only play games"], a: 1 }
-          ],
-          wordwall: [
-            { w: "Hello", d: "Hola" },
-            { w: "Name", d: "Nombre" },
-            { w: "Age", d: "Edad" },
-            { w: "Friend", d: "Amigo" }
-          ],
-          yt: "YMyM-GZ31p8"
-        },
-        2: {
-          vocab: [
-            { w: "Morning", t: "Mañana", p: "/mórning/" },
-            { w: "Eat", t: "Comer", p: "/íit/" },
-            { w: "School", t: "Colegio", p: "/scúul/" },
-            { w: "Sleep", t: "Dormir", p: "/slíip/" }
-          ],
-          song: "Yellow - Coldplay",
-          lyrics: "Look at the stars, look how they shine for you, and everything you do.",
-          reading: "In the morning, I eat breakfast at 7:00 AM. Then, I walk to my school. I study computer applications and English. At night, I sleep early.",
-          quizzes: [
-            { q: "What time does the student eat breakfast?", o: ["6:00 AM", "7:00 AM", "8:00 AM"], a: 1 },
-            { q: "How does the student get to school?", o: ["By bus", "By car", "By walking"], a: 2 },
-            { q: "What subjects does the student study?", o: ["Math & Physics", "English & Tech Apps", "History"], a: 1 },
-            { q: "When does the student sleep?", o: ["At night", "In the afternoon", "Never"], a: 0 },
-            { q: "Do they sleep early?", o: ["Yes", "No", "Sometimes"], a: 0 }
-          ],
-          wordwall: [
-            { w: "Morning", d: "Mañana" },
-            { w: "Eat", d: "Comer" },
-            { w: "School", d: "Colegio" },
-            { w: "Sleep", d: "Dormir" }
-          ],
-          yt: "yKNxeF4K19q"
-        },
-        3: {
-          vocab: [
-            { w: "Play", t: "Jugar", p: "/pléi/" },
-            { w: "Soccer", t: "Fútbol", p: "/sóquer/" },
-            { w: "Music", t: "Música", p: "/miúsic/" },
-            { w: "Read", t: "Leer", p: "/ríid/" }
-          ],
-          song: "Roar - Katy Perry",
-          lyrics: "I got the eye of the tiger, a fighter, dancing through the fire.",
-          reading: "On weekends, I like to play soccer with my classmates. Lucy prefers to read books or listen to classical music. We share our hobbies in class.",
-          quizzes: [
-            { q: "What sport does the author play?", o: ["Basketball", "Soccer", "Tennis"], a: 1 },
-            { q: "Who does the author play soccer with?", o: ["Classmates", "Parents", "Sisters"], a: 0 },
-            { q: "What genre of music does Lucy listen to?", o: ["Rock", "Classical", "Pop"], a: 1 },
-            { q: "When do they do these activities?", o: ["During weekdays", "On weekends", "At night"], a: 1 },
-            { q: "What do they share in class?", o: ["Food", "Hobbies", "Books"], a: 1 }
-          ],
-          wordwall: [
-            { w: "Play", d: "Jugar" },
-            { w: "Soccer", d: "Fútbol" },
-            { w: "Music", d: "Música" },
-            { w: "Read", d: "Leer" }
-          ],
-          yt: "CevxZvSJLk8"
-        },
-        4: {
-          vocab: [
-            { w: "City", t: "Ciudad", p: "/síti/" },
-            { w: "Flight", t: "Vuelo", p: "/fláit/" },
-            { w: "Map", t: "Mapa", p: "/máp/" },
-            { w: "Hotel", t: "Hotel", p: "/jotél/" }
-          ],
-          song: "Perfect - Ed Sheeran",
-          lyrics: "Baby, I'm dancing in the dark, with you between my arms.",
-          reading: "Next month, my family will travel to Cusco. We have our flight tickets. We downloaded the offline city map on Google Drive to navigate without internet.",
-          quizzes: [
-            { q: "Where will the family travel?", o: ["Cusco", "Arequipa", "Tacna"], a: 0 },
-            { q: "How will they travel?", o: ["By train", "By flight", "By car"], a: 1 },
-            { q: "What did they download offline?", o: ["Games", "A city map", "Music"], a: 1 },
-            { q: "Where did they save the map?", o: ["Google Drive", "Emails", "Pen Drive"], a: 0 },
-            { q: "When are they travelling?", o: ["Next week", "Next month", "Today"], a: 1 }
-          ],
-          wordwall: [
-            { w: "City", d: "Ciudad" },
-            { w: "Flight", d: "Vuelo" },
-            { w: "Map", d: "Mapa" },
-            { w: "Hotel", d: "Hotel" }
-          ],
-          yt: "2Vv-BfVoq4g"
-        },
-        5: {
-          vocab: [
-            { w: "Task", t: "Tarea", p: "/tásk/" },
-            { w: "Write", t: "Escribir", p: "/ráit/" },
-            { w: "Learn", t: "Aprender", p: "/lérn/" },
-            { w: "Team", t: "Equipo", p: "/tíim/" }
-          ],
-          song: "Firework - Katy Perry",
-          lyrics: "Baby, you're a firework, come on let your colors burst.",
-          reading: "For our final academic task, we must write a team proposal in Google Docs offline. We learn how to coordinate asynchronously and sync later.",
-          quizzes: [
-            { q: "What kind of task is this?", o: ["Simple vocabulary test", "Final academic task", "Solo homework"], a: 1 },
-            { q: "Where will they write the proposal?", o: ["Google Docs offline", "Google Sheets", "Paper notebook"], a: 0 },
-            { q: "What do they learn to do?", o: ["Use internet", "Coordinate asynchronously", "Paint"], a: 1 },
-            { q: "How do they work?", o: ["In teams", "Individually", "With parents"], a: 0 },
-            { q: "When do they sync data?", o: ["Immediately", "Later when online", "Never"], a: 1 }
-          ],
-          wordwall: [
-            { w: "Task", d: "Tarea" },
-            { w: "Write", d: "Escribir" },
-            { w: "Learn", d: "Aprender" },
-            { w: "Team", d: "Equipo" }
-          ],
-          yt: "QGJuMBdaqIw"
-        }
-      },
-      A2: {
-        1: {
-          vocab: [
-            { w: "Introduce", t: "Presentar", p: "/introdiús/" },
-            { w: "Country", t: "País", p: "/cántri/" },
-            { w: "Language", t: "Idioma", p: "/lángüich/" },
-            { w: "Study", t: "Estudiar", p: "/stádi/" }
-          ],
-          song: "Someone Like You - Adele",
-          lyrics: "I heard that your dreams came true, guess she gave you things I didn't give to you.",
-          reading: "To introduce yourself in a foreign country, you must describe your origin and language. Studying with offline tools helps to practice at any moment.",
-          quizzes: [
-            { q: "Where do you introduce yourself?", o: ["In a foreign country", "At home", "Online only"], a: 0 },
-            { q: "What must you describe?", o: ["Hobbies", "Origin and language", "Family name"], a: 1 },
-            { q: "What tools help you practice?", o: ["Offline tools", "Internet streaming", "Paper cards"], a: 0 },
-            { q: "When can you practice?", o: ["Only in school hours", "At any moment", "Never"], a: 1 },
-            { q: "What skill is being developed here?", o: ["Introductory skills", "Shopping skills", "Design"], a: 0 }
-          ],
-          wordwall: [
-            { w: "Introduce", d: "Presentar" },
-            { w: "Country", d: "País" },
-            { w: "Language", d: "Idioma" },
-            { w: "Study", d: "Estudiar" }
-          ],
-          yt: "hLQl3WQQoQ0"
-        },
-        2: {
-          vocab: [
-            { w: "Shower", t: "Ducha", p: "/sháuer/" },
-            { w: "Breakfast", t: "Desayuno", p: "/brécfast/" },
-            { w: "Clean", t: "Limpiar", p: "/clíin/" },
-            { w: "Watch", t: "Ver", p: "/uótch/" }
-          ],
-          song: "Blank Space - Taylor Swift",
-          lyrics: "Got a long list of ex-lovers, they'll tell you I'm insane.",
-          reading: "After a quick shower, I cook a healthy breakfast. I always clean my study area before working offline on Google Drive worksheets.",
-          quizzes: [
-            { q: "What does the author do first?", o: ["Shower", "Breakfast", "Clean"], a: 0 },
-            { q: "What type of breakfast is cooked?", o: ["Heavy", "Healthy", "Fast-food"], a: 1 },
-            { q: "What does the author clean?", o: ["The room", "The study area", "The laptop"], a: 1 },
-            { q: "When do they clean it?", o: ["Before working", "After working", "During recess"], a: 0 },
-            { q: "Where do they work offline?", o: ["Google Drive worksheets", "Word documents", "Emails"], a: 0 }
-          ],
-          wordwall: [
-            { w: "Shower", d: "Ducha" },
-            { w: "Breakfast", d: "Desayuno" },
-            { w: "Clean", d: "Limpiar" },
-            { w: "Watch", d: "Ver" }
-          ],
-          yt: "e-ORhEE9VVg"
-        },
-        3: {
-          vocab: [
-            { w: "Draw", t: "Dibujar", p: "/dróo/" },
-            { w: "Garden", t: "Jardín", p: "/gárden/" },
-            { w: "Cook", t: "Cocinar", p: "/cúuc/" },
-            { w: "Video game", t: "Videojuego", p: "/vídiogéim/" }
-          ],
-          song: "Happy - Pharrell Williams",
-          lyrics: "Clap along if you feel like happiness is the truth.",
-          reading: "My sister loves to draw in the garden. I prefer to cook dinner and play an interactive video game. Having personal interests helps reduce study stress.",
-          quizzes: [
-            { q: "Who loves to draw?", o: ["My sister", "My friend", "My teacher"], a: 0 },
-            { q: "Where does she draw?", o: ["In the room", "In the garden", "At school"], a: 1 },
-            { q: "What does the author prefer to cook?", o: ["Lunch", "Breakfast", "Dinner"], a: 2 },
-            { q: "What game type does the author play?", o: ["Card game", "Interactive video game", "Chess"], a: 1 },
-            { q: "What does having personal interests reduce?", o: ["Study stress", "Free time", "Memory"], a: 0 }
-          ],
-          wordwall: [
-            { w: "Draw", d: "Dibujar" },
-            { w: "Garden", d: "Jardín" },
-            { w: "Cook", d: "Cocinar" },
-            { w: "Video game", d: "Videojuego" }
-          ],
-          yt: "ZbZSe6N_BXs"
-        },
-        4: {
-          vocab: [
-            { w: "Luggage", t: "Equipaje", p: "/láguedch/" },
-            { w: "Passport", t: "Pasaporte", p: "/páspourt/" },
-            { w: "Station", t: "Estación", p: "/stéishon/" },
-            { w: "Ticket", t: "Boleto", p: "/tíquet/" }
-          ],
-          song: "Dynamite - BTS",
-          lyrics: "Light it up like dynamite, watch me bring the fire and set the night alight.",
-          reading: "Don't forget your passport and luggage when going to the bus station. You should keep a digital copy of your ticket offline in Google Drive.",
-          quizzes: [
-            { q: "What documents must you not forget?", o: ["School ID", "Passport", "Driver License"], a: 1 },
-            { q: "Where is the author heading?", o: ["Airport", "Train platform", "Bus station"], a: 2 },
-            { q: "Where should you keep the ticket copy?", o: ["In Google Drive offline", "In messaging apps", "Printed"], a: 0 },
-            { q: "What kind of copy of the ticket should you keep?", o: ["Physical", "Digital copy", "None"], a: 1 },
-            { q: "Is it helpful to keep it offline?", o: ["Yes, absolutely", "No, it is useless", "Maybe"], a: 0 }
-          ],
-          wordwall: [
-            { w: "Luggage", d: "Equipaje" },
-            { w: "Passport", d: "Pasaporte" },
-            { w: "Station", d: "Estación" },
-            { w: "Ticket", d: "Boleto" }
-          ],
-          yt: "gdZLi9oWNZg"
-        },
-        5: {
-          vocab: [
-            { w: "Research", t: "Investigación", p: "/risértch/" },
-            { w: "Draft", t: "Borrador", p: "/drárft/" },
-            { w: "Submit", t: "Entregar", p: "/sabmít/" },
-            { w: "Review", t: "Revisar", p: "/riviú/" }
-          ],
-          song: "Stay - Justin Bieber & The Kid LAROI",
-          lyrics: "I do the same thing I told you that I never would, I told you I'd change.",
-          reading: "We started our group research on Google Workspace. We wrote the first draft offline and submitted it as soon as we had internet access for review.",
-          quizzes: [
-            { q: "What did the group start?", o: ["Research project", "Quiz test", "Video presentation"], a: 0 },
-            { q: "Where was the research started?", o: ["Google Workspace", "Offline sheets only", "Email client"], a: 0 },
-            { q: "How did they write the first draft?", o: ["Offline", "Online in lab", "On paper"], a: 0 },
-            { q: "When was the draft submitted?", o: ["Immediately offline", "As soon as internet was ready", "A day after"], a: 1 },
-            { q: "Why was it submitted?", o: ["For review", "For final grading", "To complete the class"], a: 0 }
-          ],
-          wordwall: [
-            { w: "Research", d: "Investigación" },
-            { w: "Draft", d: "Borrador" },
-            { w: "Submit", d: "Entregar" },
-            { w: "Review", d: "Revisar" }
-          ],
-          yt: "kTJczUoc5G4"
-        }
-      },
-      B1: { 1: { vocab: [{ w: "Experience", t: "Experiencia", p: "/ecspíriens/" }, { w: "Achieve", t: "Lograr", p: "/atchíiv/" }, { w: "Improve", t: "Mejorar", p: "/imprúuv/" }, { w: "Skill", t: "Habilidad", p: "/squíl/" }], song: "Viva La Vida - Coldplay", lyrics: "I hear Jerusalem bells are ringing, Roman Cavalry choirs are singing.", reading: "Language experience teaches you how to achieve your goals. Regular practice on receptive and productive skills helps to improve fluency.", quizzes: [ { q: "What does language experience teach?", o: ["How to achieves goals", "How to skip test", "Grammar laws"], a: 0 }, { q: "What skills should be practiced?", o: ["Only reading", "Receptive and productive", "Speaking only"], a: 1 }, { q: "What does this practice improve?", o: ["Speed", "Fluency", "Writing design"], a: 1 }, { q: "Is vocabulary included in skills?", o: ["Yes", "No", "Partially"], a: 0 }, { q: "What is the goal of language learning here?", o: ["Fluency improvement", "Exam passing", "None"], a: 0 } ], wordwall: [{ w: "Experience", d: "Experiencia" }, { w: "Achieve", d: "Lograr" }, { w: "Improve", d: "Mejorar" }, { w: "Skill", d: "Habilidad" }], yt: "dvgZkm1xWPE" } },
-      B2: { 1: { vocab: [{ w: "Hypothesis", t: "Hipótesis", p: "/jaipóthesis/" }, { w: "Persistence", t: "Persistencia", p: "/persístens/" }, { w: "Variables", t: "Variables", p: "/vériabols/" }, { w: "Analyze", t: "Analizar", p: "/ánalais/" }], song: "Believer - Imagine Dragons", lyrics: "First things first, I'ma say all the words inside my head.", reading: "To prove our research hypothesis, we analyzed different educational variables. Data persistence in offline Google Forms ensures responses are not lost.", quizzes: [ { q: "What is the study proving?", o: ["A research hypothesis", "Classroom layouts", "Domain limits"], a: 0 }, { q: "What did we analyze?", o: ["Grades only", "Educational variables", "IT setups"], a: 1 }, { q: "What tool gathers offline data?", o: ["Google Forms offline", "Google Docs", "Local storage"], a: 0 }, { q: "What does data persistence ensure?", o: ["Responses are not lost", "Speed increases", "Server is quiet"], a: 0 }, { q: "Is connection mandatory for forms?", o: ["Yes", "No, they function offline", "Only for teachers"], a: 1 } ], wordwall: [{ w: "Hypothesis", d: "Hipótesis" }, { w: "Persistence", d: "Persistencia" }, { w: "Variables", d: "Variables" }, { w: "Analyze", d: "Analizar" }], yt: "7wtfhZwyrcc" } },
-      C1: { 1: { vocab: [{ w: "Empirical", t: "Empírico", p: "/empíricol/" }, { w: "Assessment", t: "Evaluación", p: "/asésment/" }, { w: "Pedagogical", t: "Pedagógico", p: "/pedagóchicol/" }, { w: "Intervention", t: "Intervención", p: "/intervénshon/" }], song: "Rolling in the Deep - Adele", lyrics: "We could have had it all, rolling in the deep, you had my heart inside your hand.", reading: "This empirical assessment tests a pedagogical intervention in Arequipa. We investigate the impact of offline Google Workspace tools on language proficiency.", quizzes: [ { q: "What kind of assessment is this?", o: ["Empirical", "Hypothetical", "Traditional"], a: 0 }, { q: "What does it test?", o: ["Pedagogical intervention", "Connection limits", "Speed rates"], a: 0 }, { q: "Where does the study take place?", o: ["Arequipa", "Lima", "Cusco"], a: 0 }, { q: "What tools are being investigated?", o: ["Offline Google Workspace tools", "Web design tools", "Calculators"], a: 0 }, { q: "What is the target outcome?", o: ["Language proficiency", "Software sales", "Lab upgrades"], a: 0 } ], wordwall: [{ w: "Empirical", d: "Empírico" }, { w: "Assessment", d: "Evaluación" }, { w: "Pedagogical", d: "Pedagógico" }, { w: "Intervention", d: "Intervención" }], yt: "DyDfgMOUjCI" } },
-      C2: { 1: { vocab: [{ w: "Epistemology", t: "Epistemología", p: "/epistemólochi/" }, { w: "Socio-cognitive", t: "Sociocognitivo", p: "/sóusiocógnetiv/" }, { w: "Pedagogy", t: "Pedagogía", p: "/pédagochi/" }, { w: "Asynchrony", t: "Asincronía", p: "/asíncroni/" }], song: "Bohemian Rhapsody - Queen", lyrics: "Mama, just killed a man, put a gun against his head, pulled my trigger, now he's dead.", reading: "The research examines the socio-cognitive epistemology of secondary school pedagogy. Offline asynchrony in Google Workspace enables deep self-regulation.", quizzes: [ { q: "What epistemology is examined?", o: ["Socio-cognitive", "Empirical only", "Traditional"], a: 0 }, { q: "Where is this pedagogy applied?", o: ["Secondary school", "University", "Primary lab"], a: 0 }, { q: "What feature enables self-regulation?", o: ["Offline asynchrony", "Online games", "Immediate grading"], a: 0 }, { q: "What platform is used for asynchrony?", o: ["Google Workspace", "Offline forms only", "Video files"], a: 0 }, { q: "Does offline work improve independence?", o: ["Yes, through self-regulation", "No, it makes it harder", "Maybe"], a: 0 } ], wordwall: [{ w: "Epistemology", d: "Epistemología" }, { w: "Socio-cognitive", d: "Sociocognitivo" }, { w: "Pedagogy", d: "Pedagogía" }, { w: "Asynchrony", d: "Asincronía" }], yt: "fJ9rUzIMcZQ" } }
-    };
-
-    // Fill missing lessons dynamically for smooth experience
-    ["A1", "A2", "B1", "B2", "C1", "C2"].forEach(lvl => {
-      if (!lessonData[lvl]) lessonData[lvl] = {};
-      for (let les = 1; les <= 5; les++) {
-        if (!lessonData[lvl][les]) {
-          lessonData[lvl][les] = JSON.parse(JSON.stringify(lessonData[lvl][1]));
-          lessonData[lvl][les].song = `${lvl === 'C2' ? 'We Will Rock You - Queen' : 'Viva La Vida - Coldplay'} (L${les})`;
-          lessonData[lvl][les].lyrics = `This is the normal lyrics track for Level ${lvl} Lesson ${les}. Singing builds confidence and fluently improves output.`;
-          lessonData[lvl][les].yt = lvl === 'C2' ? '-tJYN-iI1zk' : 'dvgZkm1xWPE';
-        }
-      }
-    });
-
-    /* ─── Simulation State variables ────────────────────────────── */
-    let currentStep = 1;
-    let selectedLevel = "A2";
-    let selectedLesson = "1";
-    let audioContext = null;
-    let audioOscillators = [];
-    let isPlayingAudio = false;
-    let canvasAnimationId = null;
-
-    // Quiz performance tracking
-    let quizAnswers = [null, null, null, null, null];
-
-    // Wordwall state
-    let selectedWordItem = null;
-    let selectedDefItem = null;
-    let matchedCount = 0;
-
-    // Recording and Microphone Spectrogram state
-    let isRecording = false;
-    let recordInterval = null;
-    let recordSeconds = 0;
-    let mediaStream = null;
-    let microphoneNode = null;
-    let analyserNode = null;
-
-    // Karaoke timer
-    let karaokeInterval = null;
-
-    /* ─── Initialization and Event Listeners ────────────────────── */
-    window.addEventListener('load', () => {
-      document.getElementById('levelSelect').addEventListener('change', (e) => {
-        selectedLevel = e.target.value;
-        loadLessonContent();
-      });
-      document.getElementById('lessonSelect').addEventListener('change', (e) => {
-        selectedLesson = e.target.value;
-        loadLessonContent();
-      });
-
-      loadLessonContent();
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-    });
-
-    /* ─── Load Dynamic Content ──────────────────────────────────── */
-    function loadLessonContent() {
-      stopSongMelody();
-      resetRecordingState();
-
-      const data = lessonData[selectedLevel][selectedLesson];
-      if (!data) return;
-
-      // 1. Vocabulary Panel
-      const vocabContainer = document.getElementById('vocabContainer');
-      vocabContainer.innerHTML = '';
-      data.vocab.forEach(v => {
-        const card = document.createElement('div');
-        card.className = 'vocab-card';
-        card.innerHTML = `
-          <div class="word">${v.w}</div>
-          <div class="translation">${v.t}</div>
-          <div class="tip">${v.p}</div>
-        `;
-        card.addEventListener('click', () => {
-          card.classList.toggle('flipped');
-        });
-        vocabContainer.appendChild(card);
-      });
-
-      // 2. Song Details, Karaoke Box & YouTube Player
-      document.getElementById('songTitleDisplay').textContent = `Song: ${data.song}`;
-      setupKaraokeLyrics(data.lyrics);
-      
-      const ytIframe = document.getElementById('youtubePlayer');
-      ytIframe.src = `https://www.youtube.com/embed/${data.yt}?enablejsapi=1&origin=${window.location.origin}`;
-
-      // 3. Reading Passage & 5 Quizzes
-      document.getElementById('readingPassageText').textContent = data.reading;
-      quizAnswers = [null, null, null, null, null];
-      
-      const quizContainer = document.getElementById('quizContainer');
-      quizContainer.innerHTML = '';
-      data.quizzes.forEach((quiz, qIdx) => {
-        const qDiv = document.createElement('div');
-        qDiv.className = 'quiz-question';
-        qDiv.innerHTML = `
-          <p>Q${qIdx + 1}: ${quiz.q}</p>
-          <div class="quiz-options">
-            ${quiz.o.map((opt, oIdx) => `
-              <label class="option-label" id="lbl-q${qIdx}-o${oIdx}">
-                <input type="radio" name="qOpt-${qIdx}" value="${oIdx}" onclick="selectQuizAnswer(${qIdx}, ${oIdx}, ${quiz.a})" />
-                <span>${opt}</span>
-              </label>
-            `).join('')}
-          </div>
-        `;
-        quizContainer.appendChild(qDiv);
-      });
-
-      // Reset Writing textarea & reflections
-      document.getElementById('writingText').value = '';
-      document.getElementById('txtCreativeThought').value = '';
-      document.getElementById('txtPracticalUtility').value = '';
-      validateWriting();
-      validateReflections();
-
-      // 4. Wordwall Matcher Game
-      initWordwallGame(data.wordwall);
-
-      // Reset sync outputs and logs
-      document.getElementById('syncConsole').style.display = 'none';
-      document.getElementById('syncConsole').innerHTML = '';
-
-      // Update Grading Score
-      updateGrades();
-    }
-
-    /* ─── Timeline Steps Navigation ─────────────────────────────── */
-    function goToStep(step) {
-      const progressWidth = ((step - 1) / 4) * 100;
-      document.getElementById('timeProgress').style.width = `${progressWidth}%`;
-
-      const steps = document.querySelectorAll('.time-step');
-      steps.forEach((el, index) => {
-        if (index + 1 < step) {
-          el.className = 'time-step completed';
-        } else if (index + 1 === step) {
-          el.className = 'time-step active';
-        } else {
-          el.className = 'time-step';
-        }
-      });
-
-      const panels = document.querySelectorAll('.tab-panel');
-      panels.forEach((p, idx) => {
-        p.classList.toggle('active', idx + 1 === step);
-      });
-
-      if (step === 2) {
-        setTimeout(resizeCanvas, 50);
-      }
-      if (step === 5) {
-        updateGrades();
-      }
-    }
-
-    /* ─── Setup Karaoke lyrics rendering ────────────────────────── */
-    function setupKaraokeLyrics(text) {
-      const box = document.getElementById('karaokeBox');
-      box.innerHTML = '';
-      const words = text.split(' ');
-      words.forEach((w, i) => {
-        const span = document.createElement('span');
-        span.className = 'k-word';
-        span.id = `kw-${i}`;
-        span.textContent = w;
-        box.appendChild(span);
-      });
-    }
-
-    function runKaraokeHighlight() {
-      const kWords = document.querySelectorAll('.k-word');
-      if (kWords.length === 0) return;
-      
-      let currentWordIdx = 0;
-      if (karaokeInterval) clearInterval(karaokeInterval);
-
-      kWords.forEach(w => w.classList.remove('active'));
-
-      karaokeInterval = setInterval(() => {
-        if (!isRecording) {
-          clearInterval(karaokeInterval);
-          return;
-        }
-
-        if (currentWordIdx > 0) {
-          const prev = document.getElementById(`kw-${currentWordIdx - 1}`);
-          if (prev) prev.classList.remove('active');
-        }
-
-        const curr = document.getElementById(`kw-${currentWordIdx}`);
-        if (curr) {
-          curr.classList.add('active');
-          currentWordIdx++;
-        } else {
-          currentWordIdx = 0;
-          kWords.forEach(w => w.classList.remove('active'));
-        }
-      }, 450);
-    }
-
-    /* ─── Spectrogram Drawing for microphone ───────────────────────── */
-    function initWebAudio() {
-      if (!audioContext) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        audioContext = new AudioContextClass();
-      }
-      if (!analyserNode) {
-        analyserNode = audioContext.createAnalyser();
-        analyserNode.fftSize = 256;
-      }
-    }
-
-    function resizeCanvas() {
-      const canvas = document.getElementById('specCanvas');
-      if (canvas) {
-        const rect = canvas.parentNode.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = 140;
-        drawStaticCanvas();
-      }
-    }
-
-    function drawStaticCanvas() {
-      const canvas = document.getElementById('specCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#0b132b';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.strokeStyle = 'rgba(91, 192, 190, 0.2)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, canvas.height / 2);
-      ctx.lineTo(canvas.width, canvas.height / 2);
-      ctx.stroke();
-    }
-
-    function visualizeSpectrogram() {
-      const canvas = document.getElementById('specCanvas');
-      const ctx = canvas.getContext('2d');
-      const bufferLength = analyserNode.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-
-      function draw() {
-        if (!isRecording) return;
-        canvasAnimationId = requestAnimationFrame(draw);
-
-        analyserNode.getByteFrequencyData(dataArray);
-        ctx.fillStyle = 'rgba(11, 19, 43, 0.2)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        const barWidth = (canvas.width / bufferLength) * 2.5;
-        let x = 0;
-
-        for (let i = 0; i < bufferLength; i++) {
-          const percent = dataArray[i] / 255;
-          const barHeight = percent * canvas.height;
-
-          let color = 'var(--g-blue)';
-          if (i > bufferLength * 0.6) color = 'var(--g-red)';
-          else if (i > bufferLength * 0.3) color = 'var(--g-yellow)';
-          else if (i > bufferLength * 0.1) color = 'var(--g-green)';
-
-          ctx.fillStyle = color;
-          ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
-          x += barWidth;
-        }
-
-        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        for (let i = 0; i < bufferLength; i++) {
-          const val = dataArray[i] / 255;
-          const y = canvas.height - (val * canvas.height) - 10;
-          const xPos = (canvas.width / bufferLength) * i * 2.5;
-          if (i === 0) ctx.moveTo(xPos, y);
-          else ctx.lineTo(xPos, y);
-        }
-        ctx.stroke();
-      }
-
-      draw();
-    }
-
-    /* ─── Step 2: Microphone Input & Real Voice Spectrogram ─────── */
-    function toggleRecording() {
-      const btn = document.getElementById('btnRecord');
-      const recSection = document.getElementById('recordSection');
-      const statusText = document.getElementById('recStatus');
-
-      if (!isRecording) {
-        navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-          .then(stream => {
-            initWebAudio();
-            mediaStream = stream;
-            
-            microphoneNode = audioContext.createMediaStreamSource(stream);
-            microphoneNode.connect(analyserNode);
-
-            isRecording = true;
-            recSection.classList.add('recording');
-            btn.textContent = "⏹ Stop Singing";
-            btn.className = "btn btn-danger";
-            statusText.textContent = "🎙 Recording your singing! Spectrogram shows voice pitch...";
-            document.getElementById('spectrogramLabel').textContent = "Spectrogram (Microphone Input)";
-
-            recordSeconds = 0;
-            document.getElementById('recTimer').textContent = "00:00";
-            
-            runKaraokeHighlight();
-            visualizeSpectrogram();
-            setupVoiceWaveformUI();
-          })
-          .catch(err => {
-            isRecording = true;
-            recSection.classList.add('recording');
-            btn.textContent = "⏹ Stop Singing";
-            btn.className = "btn btn-danger";
-            statusText.textContent = "🎙 Recording Voice (Simulated Input)...";
-            document.getElementById('spectrogramLabel').textContent = "Spectrogram (Voice Simulation)";
-            
-            recordSeconds = 0;
-            document.getElementById('recTimer').textContent = "00:00";
-            
-            runKaraokeHighlight();
-            setupSimulatedVoiceWaves();
-          });
-      } else {
-        resetRecordingState();
-        statusText.textContent = "💾 Voice recorded & analyzed successfully. Performance updated.";
-        updateGrades();
-      }
-    }
-
-    function setupVoiceWaveformUI() {
-      const visualizer = document.getElementById('recVisualizer');
-      visualizer.innerHTML = '';
-      const barCount = 18;
-      for (let i = 0; i < barCount; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        visualizer.appendChild(bar);
-      }
-
-      recordInterval = setInterval(() => {
-        recordSeconds++;
-        const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
-        const secs = String(recordSeconds % 60).padStart(2, '0');
-        document.getElementById('recTimer').textContent = `${mins}:${secs}`;
-
-        const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
-        analyserNode.getByteFrequencyData(dataArray);
-        
-        const bars = visualizer.querySelectorAll('.bar');
-        bars.forEach((bar, idx) => {
-          const dataIdx = Math.floor((idx / bars.length) * dataArray.length);
-          const volume = dataArray[dataIdx] || 0;
-          const h = Math.max(3, Math.floor((volume / 255) * 35));
-          bar.style.height = `${h}px`;
-        });
-      }, 150);
-    }
-
-    function setupSimulatedVoiceWaves() {
-      const visualizer = document.getElementById('recVisualizer');
-      visualizer.innerHTML = '';
-      const barCount = 18;
-      for (let i = 0; i < barCount; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        visualizer.appendChild(bar);
-      }
-
-      const canvas = document.getElementById('specCanvas');
-      const ctx = canvas.getContext('2d');
-      let offset = 0;
-
-      function simulateCanvasSpec() {
-        if (!isRecording || mediaStream) return;
-        ctx.fillStyle = 'rgba(11, 19, 43, 0.25)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.strokeStyle = 'var(--g-red)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        for (let x = 0; x < canvas.width; x++) {
-          const y = canvas.height / 2 + Math.sin(x * 0.04 + offset) * 20 * Math.cos(x * 0.006 + offset * 0.5);
-          if (x === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-        offset += 0.2;
-        canvasAnimationId = requestAnimationFrame(simulateCanvasSpec);
-      }
-      simulateCanvasSpec();
-
-      recordInterval = setInterval(() => {
-        recordSeconds++;
-        const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
-        const secs = String(recordSeconds % 60).padStart(2, '0');
-        document.getElementById('recTimer').textContent = `${mins}:${secs}`;
-
-        const bars = visualizer.querySelectorAll('.bar');
-        bars.forEach(bar => {
-          const h = Math.floor(Math.random() * 25) + 4;
-          bar.style.height = `${h}px`;
-        });
-      }, 150);
-    }
-
-    function resetRecordingState() {
-      isRecording = false;
-      const btn = document.getElementById('btnRecord');
-      const recSection = document.getElementById('recordSection');
-      
-      if (recordInterval) {
-        clearInterval(recordInterval);
-        recordInterval = null;
-      }
-      
-      if (mediaStream) {
-        mediaStream.getTracks().forEach(track => track.stop());
-        mediaStream = null;
-      }
-
-      if (microphoneNode) {
-        try { microphoneNode.disconnect(); } catch(e) {}
-        microphoneNode = null;
-      }
-
-      recSection.classList.remove('recording');
-      btn.textContent = "🎤 Sing & Record Voice";
-      btn.className = "btn btn-success";
-
-      const visualizer = document.getElementById('recVisualizer');
-      visualizer.innerHTML = '';
-
-      if (canvasAnimationId) {
-        cancelAnimationFrame(canvasAnimationId);
-        canvasAnimationId = null;
-      }
-
-      if (karaokeInterval) {
-        clearInterval(karaokeInterval);
-        karaokeInterval = null;
-      }
-      const kWords = document.querySelectorAll('.k-word');
-      kWords.forEach(w => w.classList.remove('active'));
-
-      drawStaticCanvas();
-    }
-
-    /* ─── Step 2: Polyphonic Synth Backup (Muted / Cleaned) ───────── */
-    function stopSongMelody() {
-      // Stubbed to support YouTube flows
-    }
-
-    /* ─── Step 3: Quiz Selectors & Writing Analysis ──────────────── */
-    function selectQuizAnswer(qIdx, oIdx, correctIdx) {
-      const qDivs = document.getElementById('quizContainer').querySelectorAll('.quiz-question');
-      const targetLabels = qDivs[qIdx].querySelectorAll('.option-label');
-      targetLabels.forEach(l => {
-        l.classList.remove('correct', 'incorrect');
-      });
-
-      const selectedLabel = document.getElementById(`lbl-q${qIdx}-o${oIdx}`);
-      if (oIdx === correctIdx) {
-        selectedLabel.classList.add('correct');
-        quizAnswers[qIdx] = true;
-        playFeedbackSound(true);
-      } else {
-        selectedLabel.classList.add('incorrect');
-        quizAnswers[qIdx] = false;
-        playFeedbackSound(false);
-      }
-
-      updateGrades();
-    }
-
-    function validateWriting() {
-      const txt = document.getElementById('writingText').value;
-      const words = txt.trim().split(/\s+/).filter(w => w.length > 0);
-      const wordCount = words.length;
-      document.getElementById('wordCountLabel').textContent = `Words: ${wordCount} / 15`;
-
-      const connectors = ["because", "however", "therefore", "although"];
-      connectors.forEach(c => {
-        const badge = document.getElementById(`badge-${c}`);
-        const regex = new RegExp(`\\b${c}\\b`, 'i');
-        if (regex.test(txt)) {
-          badge.classList.add('active');
-        } else {
-          badge.classList.remove('active');
-        }
-      });
-
-      const statusLabel = document.getElementById('writingStatusLabel');
-      if (wordCount >= 15) {
-        statusLabel.textContent = "Status: Approved (Draft valid)";
-        statusLabel.style.color = "var(--g-green)";
-      } else {
-        statusLabel.textContent = "Status: Pending";
-        statusLabel.style.color = "var(--g-red)";
-      }
-
-      updateGrades();
-    }
-
-    function validateReflections() {
-      updateGrades();
-    }
-
-    function playFeedbackSound(isCorrect) {
-      try {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        const ctx = new AudioContextClass();
-        const osc = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-
-        osc.connect(gainNode);
-        gainNode.connect(ctx.destination);
-
-        if (isCorrect) {
-          osc.frequency.setValueAtTime(523.25, ctx.currentTime);
-          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08);
-          gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.25);
-        } else {
-          osc.frequency.setValueAtTime(220.00, ctx.currentTime);
-          osc.frequency.setValueAtTime(196.00, ctx.currentTime + 0.08);
-          gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.25);
-        }
-      } catch(e) {}
-    }
-
-    /* ─── Step 4: Wordwall Game Logic ────────────────────────────── */
-    function initWordwallGame(pairs) {
-      const colWords = document.getElementById('colWords');
-      const colDefs = document.getElementById('colDefs');
-      
-      colWords.innerHTML = '';
-      colDefs.innerHTML = '';
-      document.getElementById('gameWinBanner').style.display = 'none';
-
-      selectedWordItem = null;
-      selectedDefItem = null;
-      matchedCount = 0;
-
-      const defs = pairs.map((p, i) => ({ text: p.d, idx: i }));
-      defs.sort(() => Math.random() - 0.5);
-
-      pairs.forEach((p, idx) => {
-        const itemW = document.createElement('div');
-        itemW.className = 'matcher-item';
-        itemW.textContent = p.w;
-        itemW.setAttribute('data-index', idx);
-        itemW.addEventListener('click', () => selectWord(itemW));
-        colWords.appendChild(itemW);
-      });
-
-      defs.forEach(d => {
-        const itemD = document.createElement('div');
-        itemD.className = 'matcher-item';
-        itemD.textContent = d.text;
-        itemD.setAttribute('data-target', d.idx);
-        itemD.addEventListener('click', () => selectDef(itemD));
-        colDefs.appendChild(itemD);
-      });
-    }
-
-    function selectWord(item) {
-      if (item.classList.contains('matched')) return;
-      const words = document.getElementById('colWords').querySelectorAll('.matcher-item');
-      words.forEach(w => w.classList.remove('selected'));
-
-      item.classList.add('selected');
-      selectedWordItem = item;
-      checkMatch();
-    }
-
-    function selectDef(item) {
-      if (item.classList.contains('matched')) return;
-      const defs = document.getElementById('colDefs').querySelectorAll('.matcher-item');
-      defs.forEach(d => d.classList.remove('selected'));
-
-      item.classList.add('selected');
-      selectedDefItem = item;
-      checkMatch();
-    }
-
-    function checkMatch() {
-      if (selectedWordItem && selectedDefItem) {
-        const wIdx = selectedWordItem.getAttribute('data-index');
-        const dIdx = selectedDefItem.getAttribute('data-target');
-
-        if (wIdx === dIdx) {
-          selectedWordItem.className = 'matcher-item matched';
-          selectedDefItem.className = 'matcher-item matched';
-          
-          playFeedbackSound(true);
-          matchedCount++;
-
-          if (matchedCount === 4) {
-            document.getElementById('gameWinBanner').style.display = 'block';
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#a855f7',
+            accent: '#06b6d4',
+            success: '#10b981',
+            dark: '#0b0f19',
+            card: '#161e2e',
+            border: 'rgba(255,255,255,0.08)'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
           }
-        } else {
-          playFeedbackSound(false);
-          const w = selectedWordItem;
-          const d = selectedDefItem;
-          w.style.borderColor = 'var(--g-red)';
-          d.style.borderColor = 'var(--g-red)';
-          setTimeout(() => {
-            w.classList.remove('selected');
-            d.classList.remove('selected');
-            w.style.borderColor = '';
-            d.style.borderColor = '';
-          }, 400);
-        }
-
-        selectedWordItem = null;
-        selectedDefItem = null;
-      }
-    }
-
-    /* ─── Step 5: Dynamic Score & Custom Grading Scale Calculator ── */
-    function updateGrades() {
-      // 1. Quiz Score: 5 questions. 2 pts each. Max 10 pts.
-      let quizCorrectCount = 0;
-      quizAnswers.forEach(ans => {
-        if (ans === true) quizCorrectCount++;
-      });
-      const quizPoints = quizCorrectCount * 2;
-
-      // 2. Writing Score: word count (>=15 words) = 2 pts. Connectors = 1 pt each. Max 4 pts.
-      const txt = document.getElementById('writingText').value;
-      const words = txt.trim().split(/\s+/).filter(w => w.length > 0);
-      const wordCount = words.length;
-      let writingPoints = 0;
-      if (wordCount >= 15) {
-        writingPoints += 2;
-      }
-      let connectorsCount = 0;
-      const connectors = ["because", "however", "therefore", "although"];
-      connectors.forEach(c => {
-        const regex = new RegExp(`\\b${c}\\b`, 'i');
-        if (regex.test(txt)) connectorsCount++;
-      });
-      writingPoints += Math.min(2, connectorsCount);
-
-      // 3. Speaking/Singing Score: based on record time length. 1 pt per 3 seconds. Max 4 pts.
-      let speakingPoints = 0;
-      if (recordSeconds > 0) {
-        speakingPoints = Math.min(4, Math.floor(recordSeconds / 3.7));
-      }
-
-      // 4. Reflections Score: 1 pt for Creative Thought, 1 pt for Utility. Max 2 pts.
-      let reflectionsPoints = 0;
-      const creativeVal = document.getElementById('txtCreativeThought').value.trim();
-      const utilityVal = document.getElementById('txtPracticalUtility').value.trim();
-
-      if (creativeVal.length >= 10) reflectionsPoints += 1;
-      if (utilityVal.length >= 10) reflectionsPoints += 1;
-
-      document.getElementById('lblReflectionBonus').textContent = `Reflections score: ${reflectionsPoints} / 2 points`;
-
-      // Total Score Sum (20 points max)
-      const totalPoints = quizPoints + writingPoints + speakingPoints + reflectionsPoints;
-
-      // Calculate grade based on specified rubric criteria
-      let grade = "C";
-      if (totalPoints >= 18) {
-        grade = "AD";
-      } else if (totalPoints >= 14) {
-        grade = "A";
-      } else if (totalPoints >= 11) {
-        grade = "B";
-      }
-
-      // Update UI elements
-      document.getElementById('lblScoreQuiz').textContent = `${quizPoints} / 10`;
-      document.getElementById('lblScoreWriting').textContent = `${writingPoints} / 4`;
-      document.getElementById('lblScoreSpeaking').textContent = `${speakingPoints} / 4`;
-      document.getElementById('lblScoreReflect').textContent = `${reflectionsPoints} / 2`;
-      
-      const lblPoints = document.getElementById('lblTotalPoints');
-      lblPoints.textContent = `${totalPoints} / 20`;
-
-      const badge = document.getElementById('lblGradeBadge');
-      badge.className = `grade-result ${grade}`;
-      badge.textContent = `GRADE: ${grade}`;
-    }
-
-    /* ─── Step 5: Drive Sync Simulation ──────────────────────────── */
-    function startDriveSync() {
-      updateGrades();
-
-      const creativeVal = document.getElementById('txtCreativeThought').value.trim();
-      const utilityVal = document.getElementById('txtPracticalUtility').value.trim();
-
-      if (creativeVal.length < 10 || utilityVal.length < 10) {
-        const consoleLog = document.getElementById('syncConsole');
-        consoleLog.style.display = 'block';
-        consoleLog.innerHTML = '<span style="color:var(--g-red);">⚠️ Validation Error: Creative Reflection and Practical Utility inputs must contain at least 10 characters to unlock synchronization!</span>';
-        playFeedbackSound(false);
-        return;
-      }
-
-      const consoleLog = document.getElementById('syncConsole');
-      consoleLog.style.display = 'block';
-      consoleLog.innerHTML = 'Connecting to Google Workspace secure server...<br/>';
-
-      const quizP = document.getElementById('lblScoreQuiz').textContent;
-      const writeP = document.getElementById('lblScoreWriting').textContent;
-      const speakP = document.getElementById('lblScoreSpeaking').textContent;
-      const reflectP = document.getElementById('lblScoreReflect').textContent;
-      const totalP = document.getElementById('lblTotalPoints').textContent;
-      const finalGrade = document.getElementById('lblGradeBadge').textContent;
-
-      const logs = [
-        "Resolving domain address: http://antigravity.edu.pe",
-        "Secure socket established. Uploading cached student portfolio...",
-        `Uploading recorded audio segment: Speaking Score [${speakP}] synchronized.`,
-        `Uploading Reading & Listening Quiz results: [${quizP}] verified.`,
-        `Syncing active writing response: [${writeP}] matching connector criteria.`,
-        `Uploading Student Reflections card: [${reflectP}] (Creative insight + Practical utility).`,
-        `Finalizing Grade Report card: [${finalGrade}] total score [${totalP}] saved.`,
-        "💾 Synchronization Successful! Drive portfolio fully persistent in cloud."
-      ];
-
-      let i = 0;
-      function printNextLog() {
-        if (i < logs.length) {
-          consoleLog.innerHTML += `> ${logs[i]}<br/>`;
-          consoleLog.scrollTop = consoleLog.scrollHeight;
-          i++;
-          setTimeout(printNextLog, 700);
         }
       }
-      printNextLog();
     }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-dark text-white font-sans overflow-x-hidden">
 
+  <!-- Gradient Blob Background -->
+  <div id="blob-bg" aria-hidden="true">
+    <div class="blob-wrap blob-blue-wrap"><div class="blob blob-blue"></div></div>
+    <div class="blob-wrap blob-red-wrap"><div class="blob blob-red"></div></div>
+    <div class="blob-wrap blob-yellow-wrap"><div class="blob blob-yellow"></div></div>
+    <div class="blob-wrap blob-green-wrap"><div class="blob blob-green"></div></div>
+    <div class="blob-wrap blob-purple-wrap"><div class="blob blob-purple"></div></div>
+  </div>
+
+  <!-- ─── HEADER ─── -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="logo-icon">
+          <i class="fa-solid fa-cloud-arrow-up text-white text-sm"></i>
+        </div>
+        <span class="font-display font-bold text-xl logo-text">Workspace Study</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#research" class="nav-link" data-section="research">Research</a>
+        <a href="#tools" class="nav-link" data-section="tools">Tools</a>
+        <a href="#results" class="nav-link" data-section="results">Results</a>
+        <a href="#glossary" class="nav-link" data-section="glossary">Glossary</a>
+      </nav>
+
+      <!-- Header CTA -->
+      <a href="#research" class="hidden md:flex btn-primary text-sm">
+        <i class="fa-solid fa-flask mr-2"></i>View Research
+      </a>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="mobile-toggle" class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+        <i class="fa-solid fa-bars text-white"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-card/95 backdrop-blur-xl border-t border-white/10 px-6 py-4 flex flex-col gap-2">
+      <a href="#home" class="mobile-nav-link">Home</a>
+      <a href="#research" class="mobile-nav-link">Research</a>
+      <a href="#tools" class="mobile-nav-link">Tools</a>
+      <a href="#results" class="mobile-nav-link">Results</a>
+      <a href="#glossary" class="mobile-nav-link">Glossary</a>
+    </div>
+  </header>
+
+  <!-- ─── HERO SECTION ─── -->
+  <section id="home" class="min-h-screen flex items-center justify-center pt-24 pb-16 px-6 relative">
+
+    <!-- Glow Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Research Project 2026 · Antigravity IDE, Arequipa
+        </div>
+
+        <h1 class="font-display text-5xl md:text-6xl xl:text-7xl font-black leading-[1.05] mt-6 mb-6">
+          Influence of<br>
+          <span class="gradient-text">Google Workspace</span><br>
+          <span class="text-white/90">Offline-Online</span><br>
+          Packages
+        </h1>
+
+        <p class="text-white/60 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+          Analyzing their impact on the <strong class="text-white/90">four English skills</strong>:
+          Reading, Writing, Listening & Speaking at secondary education level.
+        </p>
+
+        <!-- Author Info -->
+        <div class="author-card mb-10">
+          <div class="author-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+          <div>
+            <p class="text-white/90 font-semibold text-sm">María de los Ángeles Vilca Zeballos</p>
+            <p class="text-white/40 text-xs">Technologies & Communication Applied to Education · UNSA</p>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap gap-4">
+          <a href="#research" class="btn-primary text-base px-8 py-4">
+            <i class="fa-solid fa-microscope mr-2"></i>View Research
+          </a>
+          <a href="#tools" class="btn-outline text-base px-8 py-4">
+            <i class="fa-solid fa-toolbox mr-2"></i>Explore Tools
+          </a>
+        </div>
+
+        <!-- Skill Chips -->
+        <div class="flex flex-wrap gap-2 mt-8">
+          <span class="skill-chip listening"><i class="fa-solid fa-headphones mr-1"></i>Listening</span>
+          <span class="skill-chip reading"><i class="fa-solid fa-book-open mr-1"></i>Reading</span>
+          <span class="skill-chip writing"><i class="fa-solid fa-pen-nib mr-1"></i>Writing</span>
+          <span class="skill-chip speaking"><i class="fa-solid fa-microphone mr-1"></i>Speaking</span>
+        </div>
+      </div>
+
+      <!-- Right Visual: Google Workspace Collaboration Globe -->
+      <div class="workspace-visual" data-animate="fade-left">
+        <div class="workspace-globe">
+          <!-- Center Hub -->
+          <div class="workspace-hub">
+            <i class="fa-brands fa-google text-white text-2xl"></i>
+          </div>
+          <!-- Orbiting Icons -->
+          <div class="orbit orbit-1">
+            <div class="workspace-icon-card app-docs" style="--angle:0deg">
+              <i class="fa-solid fa-file-lines"></i><span>Docs</span>
+            </div>
+            <div class="workspace-icon-card app-drive" style="--angle:90deg">
+              <i class="fa-solid fa-database"></i><span>Drive</span>
+            </div>
+            <div class="workspace-icon-card app-forms" style="--angle:180deg">
+              <i class="fa-solid fa-clipboard-list"></i><span>Forms</span>
+            </div>
+            <div class="workspace-icon-card app-slides" style="--angle:270deg">
+              <i class="fa-solid fa-display"></i><span>Slides</span>
+            </div>
+          </div>
+          <div class="orbit orbit-2">
+            <div class="workspace-icon-card app-sheets" style="--angle:45deg">
+              <i class="fa-solid fa-table-cells"></i><span>Sheets</span>
+            </div>
+            <div class="workspace-icon-card app-meet" style="--angle:225deg">
+              <i class="fa-solid fa-video"></i><span>Meet</span>
+            </div>
+          </div>
+          <!-- Connection Lines -->
+          <svg class="orbit-lines" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="130" fill="none" stroke="rgba(99,102,241,0.2)" stroke-width="1" stroke-dasharray="6 4"/>
+            <circle cx="200" cy="200" r="190" fill="none" stroke="rgba(168,85,247,0.15)" stroke-width="1" stroke-dasharray="4 6"/>
+          </svg>
+        </div>
+
+        <!-- Floating Stats Cards -->
+        <div class="stat-float stat-float-1 card">
+          <i class="fa-solid fa-wifi-slash text-success text-sm"></i>
+          <div>
+            <p class="text-white font-bold text-sm">Offline Mode</p>
+            <p class="text-white/40 text-xs">Data persisted locally</p>
+          </div>
+        </div>
+        <div class="stat-float stat-float-2 card">
+          <i class="fa-solid fa-rotate text-primary text-sm"></i>
+          <div>
+            <p class="text-white font-bold text-sm">64 Lessons</p>
+            <p class="text-white/40 text-xs">Synced to Drive</p>
+          </div>
+        </div>
+        <div class="stat-float stat-float-3">
+          <i class="fa-solid fa-chart-line text-accent text-sm"></i>
+          <div>
+            <p class="text-white font-bold text-sm">AD Grade</p>
+            <p class="text-white/40 text-xs">18-20 MINEDU scale</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span class="text-white/30 text-xs uppercase tracking-widest">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── RESEARCH SECTION ─── -->
+  <section id="research" class="py-24 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-vial mr-2"></i>Research</span>
+        <h2 class="section-title">Research <span class="gradient-text">Hypotheses</span></h2>
+        <p class="section-subtitle">Two core hypotheses driving the pedagogical intervention at Antigravity IDE.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mt-16" data-animate="fade-up">
+        <!-- HE1 -->
+        <div class="research-card group">
+          <div class="research-card-top he1">
+            <span class="hypothesis-tag">HE1</span>
+            <div class="research-icon"><i class="fa-solid fa-ear-listen"></i></div>
+          </div>
+          <div class="p-8">
+            <h3 class="font-display font-bold text-xl mb-3 text-white">Receptive Skills</h3>
+            <p class="text-white/60 leading-relaxed text-sm">The <strong class="text-indigo-400">technical offline configuration</strong> and data persistence of Google Workspace significantly improve receptive skills of listening and reading comprehension in English among Cycle VI and Cycle VII students at Antigravity IDE.</p>
+            <div class="flex gap-3 mt-6">
+              <span class="mini-badge listening">Listening</span>
+              <span class="mini-badge reading">Reading</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HE2 -->
+        <div class="research-card group">
+          <div class="research-card-top he2">
+            <span class="hypothesis-tag">HE2</span>
+            <div class="research-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+          </div>
+          <div class="p-8">
+            <h3 class="font-display font-bold text-xl mb-3 text-white">Productive Skills</h3>
+            <p class="text-white/60 leading-relaxed text-sm">The management of <strong class="text-purple-400">asynchronous synchronized tasks</strong> significantly optimizes the technical and communicative quality of oral and written production in English in the evaluated institutional environment.</p>
+            <div class="flex gap-3 mt-6">
+              <span class="mini-badge writing">Writing</span>
+              <span class="mini-badge speaking">Speaking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Program Stats Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12" data-animate="fade-up">
+        <div class="stat-block"><h4 class="stat-num">128</h4><p class="stat-label">Students (12–16 yrs)</p></div>
+        <div class="stat-block"><h4 class="stat-num">64</h4><p class="stat-label">Interactive Lessons</p></div>
+        <div class="stat-block"><h4 class="stat-num">32</h4><p class="stat-label">Weeks, 2 hrs/week</p></div>
+        <div class="stat-block"><h4 class="stat-num">4</h4><p class="stat-label">English Skills Tested</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TOOLS SECTION ─── -->
+  <section id="tools" class="py-24 px-6 bg-card/40 relative">
+    <div class="orb orb-4"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-toolbox mr-2"></i>Tools</span>
+        <h2 class="section-title">Google Workspace <span class="gradient-text">Offline Tools</span></h2>
+        <p class="section-subtitle">The complete toolkit used to run the 64-lesson intervention at Antigravity IDE.</p>
+      </div>
+
+      <div class="tools-grid mt-16" data-animate="fade-up">
+        <div class="tool-card">
+          <div class="tool-icon" style="--c1:#4285F4;--c2:#34A853">
+            <i class="fa-solid fa-file-lines"></i>
+          </div>
+          <h3 class="tool-title">Google Docs</h3>
+          <p class="tool-desc">Offline writing drafts with version history tracking. Students write essays and reflections; teachers leave async comments on sync.</p>
+          <div class="tool-tag">HE2 Writing</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon" style="--c1:#FBBC05;--c2:#EA4335">
+            <i class="fa-solid fa-clipboard-list"></i>
+          </div>
+          <h3 class="tool-title">Google Forms</h3>
+          <p class="tool-desc">Pre-downloaded quizzes and self-evaluation checklists. 5 items per skill per session graded instantly upon sync.</p>
+          <div class="tool-tag">HE1 Assessment</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon" style="--c1:#34A853;--c2:#188038">
+            <i class="fa-solid fa-table-cells"></i>
+          </div>
+          <h3 class="tool-title">Google Sheets</h3>
+          <p class="tool-desc">Teacher gradebook. Auto-populated with Form responses, showing grades (AD/A/B/C) and timestamps per student instantly.</p>
+          <div class="tool-tag">Simple Tracking</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon" style="--c1:#4285F4;--c2:#0F9D58">
+            <i class="fa-solid fa-hard-drive"></i>
+          </div>
+          <h3 class="tool-title">Google Drive</h3>
+          <p class="tool-desc">Individual student portfolios. Stores audio recordings, writing drafts, and sync logs. Works offline via Chromebook cache.</p>
+          <div class="tool-tag">Portfolio Hub</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon" style="--c1:#F4B400;--c2:#DB4437">
+            <i class="fa-solid fa-display"></i>
+          </div>
+          <h3 class="tool-title">Google Slides</h3>
+          <p class="tool-desc">Group presentation projects created offline. Used in Lesson 16 (Unit 3 Review) and collaborative speaking assessments.</p>
+          <div class="tool-tag">HE2 Speaking</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon" style="--c1:#673AB7;--c2:#9C27B0">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+          <h3 class="tool-title">Admin Console</h3>
+          <p class="tool-desc">IT-configured offline mode enabled on domain antigravity.edu.pe. Chromebooks cached all 64 lesson materials before start.</p>
+          <div class="tool-tag">IT Setup</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RESULTS / GRADING SECTION ─── -->
+  <section id="results" class="py-24 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-chart-bar mr-2"></i>Results</span>
+        <h2 class="section-title">MINEDU <span class="gradient-text">Grading Scale</span></h2>
+        <p class="section-subtitle">Student progress tracked using the official 0-20 Peruvian qualitative grading system.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 mt-16 items-center" data-animate="fade-up">
+        <!-- Grade Cards -->
+        <div class="flex flex-col gap-4">
+          <div class="grade-card grade-ad">
+            <div class="grade-badge">AD</div>
+            <div>
+              <h4 class="font-bold text-white">Logro Destacado – Outstanding</h4>
+              <p class="text-sm text-white/50">Score: 18–20 / Demonstrates skills beyond expected level</p>
+            </div>
+            <div class="grade-bar"><div class="grade-fill" style="width:95%;background:linear-gradient(90deg,#a855f7,#ec4899)"></div></div>
+          </div>
+
+          <div class="grade-card grade-a">
+            <div class="grade-badge">A</div>
+            <div>
+              <h4 class="font-bold text-white">Logro Previsto – Expected</h4>
+              <p class="text-sm text-white/50">Score: 14–17 / Meets the expected learning goals</p>
+            </div>
+            <div class="grade-bar"><div class="grade-fill" style="width:75%;background:linear-gradient(90deg,#10b981,#06b6d4)"></div></div>
+          </div>
+
+          <div class="grade-card grade-b">
+            <div class="grade-badge">B</div>
+            <div>
+              <h4 class="font-bold text-white">En Proceso – In Process</h4>
+              <p class="text-sm text-white/50">Score: 11–13 / Close to meeting required goals</p>
+            </div>
+            <div class="grade-bar"><div class="grade-fill" style="width:55%;background:linear-gradient(90deg,#f59e0b,#f97316)"></div></div>
+          </div>
+
+          <div class="grade-card grade-c">
+            <div class="grade-badge">C</div>
+            <div>
+              <h4 class="font-bold text-white">En Inicio – Beginning</h4>
+              <p class="text-sm text-white/50">Score: 0–10 / Still developing foundational skills</p>
+            </div>
+            <div class="grade-bar"><div class="grade-fill" style="width:30%;background:linear-gradient(90deg,#ef4444,#f43f5e)"></div></div>
+          </div>
+        </div>
+
+        <!-- Expected Outcomes -->
+        <div class="outcomes-card" data-animate="fade-left">
+          <h3 class="font-display font-bold text-2xl mb-6 text-white">Expected <span class="gradient-text">Outcomes</span></h3>
+          <ul class="flex flex-col gap-5">
+            <li class="outcome-item">
+              <div class="outcome-num">01</div>
+              <p class="text-white/70 text-sm leading-relaxed">Measurable improvement in <strong class="text-white">listening and reading scores</strong> due to offline access and data persistence.</p>
+            </li>
+            <li class="outcome-item">
+              <div class="outcome-num">02</div>
+              <p class="text-white/70 text-sm leading-relaxed">Higher quality in <strong class="text-white">speaking and writing</strong> due to asynchronous feedback cycles and revision.</p>
+            </li>
+            <li class="outcome-item">
+              <div class="outcome-num">03</div>
+              <p class="text-white/70 text-sm leading-relaxed">Student portfolio in Google Drive showing progression from <strong class="text-white">C to AD level</strong> across 64 lessons.</p>
+            </li>
+            <li class="outcome-item">
+              <div class="outcome-num">04</div>
+              <p class="text-white/70 text-sm leading-relaxed">Replicable model for other institutions in <strong class="text-white">Arequipa with similar connectivity issues</strong>.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GLOSSARY SECTION ─── -->
+  <section id="glossary" class="py-24 px-6 bg-card/40 relative">
+    <div class="orb orb-5"></div>
+    <div class="max-w-7xl mx-auto">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-book mr-2"></i>Glossary</span>
+        <h2 class="section-title">Key <span class="gradient-text">Terms</span></h2>
+        <p class="section-subtitle">Essential concepts used throughout the thesis and research program.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16" data-animate="fade-up">
+        <div class="glossary-card">
+          <span class="glossary-letter">O</span>
+          <h4 class="glossary-term">Offline Mode</h4>
+          <p class="glossary-def">Google Workspace feature allowing students to access, edit, and save files without an active internet connection. Data syncs when connection is restored.</p>
+        </div>
+        <div class="glossary-card">
+          <span class="glossary-letter">A</span>
+          <h4 class="glossary-term">Asynchronous Sync</h4>
+          <p class="glossary-def">The process by which student work created offline (documents, forms, audio) is uploaded to Google Drive at a later time when connectivity is available.</p>
+        </div>
+        <div class="glossary-card">
+          <span class="glossary-letter">P</span>
+          <h4 class="glossary-term">Data Persistence</h4>
+          <p class="glossary-def">The ability of Google Workspace to retain student responses, drafts, and quiz answers locally until synchronization with the cloud occurs.</p>
+        </div>
+        <div class="glossary-card">
+          <span class="glossary-letter">R</span>
+          <h4 class="glossary-term">Receptive Skills</h4>
+          <p class="glossary-def">Language skills involving input processing: Listening and Reading. Targeted in HE1 through offline quiz scores and comprehension completion rates.</p>
+        </div>
+        <div class="glossary-card">
+          <span class="glossary-letter">P</span>
+          <h4 class="glossary-term">Productive Skills</h4>
+          <p class="glossary-def">Language skills involving output generation: Speaking and Writing. Targeted in HE2 through Drive-recorded audio and Google Docs drafts with version history.</p>
+        </div>
+        <div class="glossary-card">
+          <span class="glossary-letter">C</span>
+          <h4 class="glossary-term">Cycle VI / VII</h4>
+          <p class="glossary-def">Secondary education cycles in the Peruvian curriculum. Cycle VI covers Grades 1-3 (A2 level), and Cycle VII covers Grades 4-5 (A2-B1 level).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer class="bg-gray-900 text-gray-300 py-10">
+  <div class="container mx-auto px-6 text-center">
+    <h3 class="text-2xl font-bold text-white mb-2">Workspace Study</h3>
+    <p class="text-gray-400 mb-4">Tu espacio para aprender mejor</p>
+    
+    <div class="flex justify-center gap-6 mb-6">
+      <a href="#" class="hover:text-white">Inicio</a>
+      <a href="#" class="hover:text-white">Sobre Nosotros</a>
+      <a href="#" class="hover:text-white">Contacto</a>
+    </div>  
+    <p class="text-gray-500 text-sm">© 2026 Workspace Study. Todos los derechos reservados.</p>
+  </div>
+</footer>
+  <script src="app.js"></script>
 </body>
 </html>
+ 
